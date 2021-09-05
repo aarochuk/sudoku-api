@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Sudoku API, Sudoku generator, Sudoku verification.">
+    <title>Sudoku API</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+
+    <!-- Bootstrap core CSS  change to website distribution-->
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+
+  </head>
+  <body>
+
+<header>
+  <div class="collapse bg-dark" id="navbarHeader">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-md-7 py-4">
+          <h4 class="text-white">About</h4>
+          <p class="text-muted">This is an api to aid in generating, solving and verifying sudoku boards. The api was built by me (uglkjgj), and the website for the documentation (this website), was made with bootstrap. Feel free to email me potential improvements and upgrades I should make.</p>
+        </div>
+        <div class="col-sm-4 offset-md-1 py-4">
+          <h4 class="text-white">Contact</h4>
+          <ul class="list-unstyled">
+            <li><a href="https://github.com/uglkjgj" target="_blank" class="text-white">Github</a></li>
+            <li><a href="mailto:aoapythontesting@gmail.com" target="_blank" class="text-white">Email</a></li>
+            <li><a href="https://www.youtube.com/channel/UCFRJvWpkGbWrtrF9o0B-U6g" target="_blank" class="text-white">My YouTube channel</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a href="#" class="navbar-brand d-flex align-items-center">
+        <strong>Sudoku API</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Sudoku API</h1>
+        <p class="lead text-muted">This API would help in creating, verifying and solving sudoku boards, its still very new and would get improvements along the way. </p>
+        <p>
+          <a href="#docs" class="btn btn-secondary my-2">View Documentation</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="docs" class="py-5 container">
+
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            Generate Sudoku Board
+          </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+            <h4><code> GET /new-board </code></h4>
+            <div class="card">
+              <div class="card-body">
+                This would generate a new sudoku board and provide the output as either a string or a list, if it is provided as a list the list would contain 9 sublists which would be a row in the sudoku board (this is the default). The zero would signify empty squares in the board. But if it is provided as a string then dots (.) would indicate empty squares. Also the solution can be provided if indicated by the user. The difficulty of the board can be specified with 1 being for the easiest board and 3 being for the hardest board, if the parameter put for the difficulty of the board does not fall between the numbers 1 and 3 then an easy board would be returned. <a href="{{url_for('new_board')}}" target="_blank">Example</a>
+              </div>
+            </div>
+
+            <h5 style="padding-top: 2rem">Path Parameters</h5>
+            <table class="table table-striped" style="padding-top: 2rem">
+              <tbody>
+                <tr>
+                  <td colspan="2"><code>diff</code></td>
+                  <td>Determines the difficulty of the board the value can be either the number 1, 2 or 3</td>
+                  <td colspan="2"><span class="text-success"> optional, default 1</span></td>
+                </tr>
+                <tr>
+                  <td colspan="2"><code>stype</code></td>
+                  <td>Determines how the board would be returned the value can be either list or string</td>
+                  <td colspan="2"><span class="text-success"> optional, default list</span></td>
+                </tr>
+                <tr>
+                  <td colspan="2"><code>solu</code></td>
+                  <td>Determines whether the solution should be returned with the board value can be either true or false</td>
+                  <td colspan="2"><span class="text-success"> optional, default false </span></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h5 style="padding-top: 2rem">Responses</h5>
+            The only possible response for this call is 200, even if parameters that are not part of the path parameters are specified a valid response would be returned which would just contain the board as a list on easy difficulty.
+
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+            Verify a Sudoku Board
+          </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+          <h4><code> GET /verify-board?{board} </code></h4>
+            <div class="card">
+              <div class="card-body">
+                This would verify if the inputted sudoku board is solvable, the board would have to be inputted as a string of 81 characters, the numbers should start from the first number on the first row of the sudoku board and go sequentially row by row till the last number on the last row of the board which would be the 81st number. The number zero can either be represented as a 0 or a dot (.) or any other non numeric character would still count as a 0. <a href="{{url_for('verify_board', sudo='123.674..457..9..6.96.4........587.454.791..2.7.4.2...91..7..433..91.527...32.9..')}}" target="_blank"> Example</a>
+              </div>
+            </div>
+
+            <h5 style="padding-top: 2rem">Path Parameters</h5>
+            <table class="table table-striped" style="padding-top: 2rem">
+              <tbody>
+                <tr>
+                  <td colspan="2"><code>sudo</code></td>
+                  <td>This should be the sudoku board inputted as a string of characters. There are meant to be 81 characters in total, each representing a square on the sudoku board.</td>
+                  <td colspan="2"><span class="text-danger"> required</span></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h5 style="padding-top: 2rem">Responses</h5>
+            <table class="table" style="padding-top: 2rem">
+              <tbody>
+                <tr>
+                  <td><code>200</code></td>
+                  <td>This would be the response if the data has been inputted in the right format.</td>
+                </tr>
+                <tr>
+                  <td><code>400</code></td>
+                  <td>This would be the response if the data has been inputted in the wrong format or no sudoku board was inputted.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseTwo">
+            Solve a Sudoku Board
+          </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body">
+          <h4><code> GET /solve-board?{board} </code></h4>
+            <div class="card">
+              <div class="card-body">
+                This would solve the inputted sudoku board and return the solution either as a string or as a list (default). The sudoku board to be solved would have to be inputted as a string of characters starting from the first character in the first row and ending in the last character in the last row. <a href="{{url_for('solve_board', sudo='123.674..457..9..6.96.4........587.454.791..2.7.4.2...91..7..433..91.527...32.9..')}}" target="_blank"> Example </a>
+              </div>
+            </div>
+
+            <h5 style="padding-top: 2rem">Path Parameters</h5>
+            <table class="table table-striped" style="padding-top: 2rem">
+              <tbody>
+                <tr>
+                  <td colspan="2"><code>sudo</code></td>
+                  <td>This should be the sudoku board inputted as a string of characters. There are meant to be 81 characters in total, each representing a square on the sudoku board.</td>
+                  <td colspan="2"><span class="text-danger"> required</span></td>
+                </tr>
+                <tr>
+                  <td colspan="2"><code>stype</code></td>
+                  <td>Determines how the board would be returned the value can be either list or string</td>
+                  <td colspan="2"><span class="text-success"> optional, default list</span></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h5 style="padding-top: 2rem">Responses</h5>
+            <table class="table" style="padding-top: 2rem">
+              <tbody>
+                <tr>
+                  <td><code>200</code></td>
+                  <td>This would be the response if the data has been inputted in the right format.</td>
+                </tr>
+                <tr>
+                  <td><code>400</code></td>
+                  <td>This would be the response if the data has been inputted in the wrong format or no sudoku board was inputted.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="text-muted py-5">
+  <div class="container">
+    <p class="float-end mb-1">
+      <a href="#">Back to top</a>
+    </p>
+    <p class="mb-0">&copy; 2021 Made by @uglkjgj &middot; <a href="https://github.com/uglkjgj/uglkjgj/"><img src="https://img.icons8.com/doodle/48/000000/github--v1.png"/></p>
+  </div>
+</footer>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+  </body>
+</html>
