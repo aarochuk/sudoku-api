@@ -78,7 +78,7 @@ def generate_board(diff=1):
 
     elif diff == 2:
         for i in range(9):
-            del_num = randint(3, 7)
+            del_num = randint(3, 6)
             removed = []
             for j in range(del_num + 1):
                 remove = randint(0, 8)
